@@ -130,3 +130,4 @@ if flag:
     print("The material has direct band gap")
 else:
     print("The material has indirect band gap")
+#reference=https://www.vasp.at/tutorials/latest/hybrids/part1/
