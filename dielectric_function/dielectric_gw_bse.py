@@ -8,9 +8,9 @@ from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 
 data=np.loadtxt("optics.dat")
 
-
 #Get the optics.dat file from the vasprun.xml of GW-BSE calculation using the shell script
 #awk 'BEGIN{i=0} /<dielectricfunction>/, /<\/dielectricfunction>/ {if ($1=="<r>") {a[i]=$2 ; b[i]=($3+$4+$5)/3 ; c[i]=$4 ; d[i]=$5 ; i=i+1}} END{for (j=0;j<i/2;j++) print a[j],b[j],b[j+i/2]}' vasprun.xml > optics.dat
+#output format: Energy (eV) Imaginary Real
 
 df = pd.DataFrame(data, columns=['Energy (eV)', 'Imaginary', 'Real'])
 #print(df)
