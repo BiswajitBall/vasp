@@ -4,6 +4,15 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 
+######output from vasprun.xml/OUTCAR using shell script#############
+#awk 'BEGIN{i=1} /HEAD OF MICRO/, /XI_LOCAL/ {if ($4=="dielectric") {a[i]=$1 ; b[i]=$2 ; c[i]=$3 ; i=i+1}} END{for (j=1;j<i;j++) print a[j],b[j],c[j]}' OUTCAR > dielectric_ipa_outcar.dat
+#awk 'BEGIN{i=1} /INVERSE MACRO/, /XI_TO_W/ {if ($4=="dielectric") {a[i]=$1 ; b[i]=$2 ; c[i]=$3 ; i=i+1}} END{for (j=1;j<i;j++) print a[j],b[j],c[j]}' OUTCAR > dielectric_rpa_outcar.dat
+#output format from OUTCAR: Energy (eV) Real Imaginary
+
+#awk 'BEGIN{i=0} /HEAD OF MICRO/, /<\/dielectricfunction>/ {if ($1=="<r>") {a[i]=$2 ; b[i]=($3+$4+$5)/3 ; i=i+1}} END{for (j=0;j<i/2;j++) print a[j],b[j],b[j+i/2]}' vasprun.xml > dielectric_ipa_varprunxml.dat
+#awk 'BEGIN{i=0} /INVERSE MACRO/, /<\/dielectricfunction>/ {if ($1=="<r>") {a[i]=$2 ; b[i]=($3+$4+$5)/3 ; i=i+1}} END{for (j=0;j<i/2;j++) print a[j],b[j],b[j+i/2]}' vasprun.xml > dielectric_rpa_vasprunxml.dat
+#output format from vasprun.xml: Energy (eV) Imaginary Real
+
 # Read OUTCAR file
 with open("OUTCAR", "r") as f:
     lines = f.readlines()
